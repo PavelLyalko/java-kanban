@@ -1,3 +1,7 @@
+package tasks;
+
+import enums.Status;
+
 import java.util.Objects;
 
 public class Task {
@@ -6,31 +10,40 @@ public class Task {
     private Status status;
     private int id;
 
+    public Task(String name, String description, Status status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public Status getStatus(){
+    public Status getStatus() {
         return status;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public void setStatus(Status status){
+
+    public void setStatus(Status status) {
         this.status = status;
     }
+
     public void setId(int id) {
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return  "name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status;
     }
