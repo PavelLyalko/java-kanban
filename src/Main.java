@@ -14,11 +14,11 @@ public class Main {
         Task task2 = new Task("task2Name","task2Description",Status.NEW );
 
         Epic epic1 = new Epic("epic1Name","epic1Description", Status.NEW, new ArrayList<>() );
-        Subtask subtask1 = new Subtask("subtask1Name", "subtask2Description", Status.NEW, epic1.getId());
-        Subtask subtask2 = new Subtask("subtask2Name","subtask2Description", Status.NEW, epic1.getId());
+        Subtask subtask1 = new Subtask("subtask1NameEpic1Name", "subtask2Description", Status.NEW, epic1.getId());
+        Subtask subtask2 = new Subtask("subtask2NameEpic1Name","subtask2Description", Status.NEW, epic1.getId());
 
         Epic epic2 = new Epic("epic2Name", "epic2Description", Status.NEW, new ArrayList<>());
-        Subtask subtask3 = new Subtask("subtask3Name", "subtask3Description", Status.NEW, epic2.getId());
+        Subtask subtask3 = new Subtask("subtask3NameEpic2Name", "subtask3Description", Status.NEW, epic2.getId());
 
         taskmanager.add(task1);
         taskmanager.add(task2);
