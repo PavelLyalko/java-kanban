@@ -28,17 +28,16 @@ public class TaskManager {
         epics.put(epic.getId(), epic);
     }
 
-    public void add(Subtask subtask, int id) {
-        if (epics.containsKey(id)) {
+    public void add(Subtask subtask) {
+        if (epics.containsKey(subtask.getEpicId())) {
             subtask.setId(nextId++);
             subtask.setStatus(Status.NEW);
-            subtask.setEpicId(id);
 
             subtasks.put(subtask.getId(), subtask);
 
-            epics.get(id).addSubtaskId(subtask.getId());
+            epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
         } else {
-            System.out.println("Не найден tasks.Epic для tasks.Subtask.");
+            System.out.println("Не найден Epic для Subtask");
         }
     }
 
@@ -62,6 +61,8 @@ public class TaskManager {
 
             if (isAllSubtasksStatusDone) {
                 epics.get(subtask.getEpicId()).setStatus(Status.DONE);
+            } else {
+                epics.get(subtask.getEpicId()).setStatus(Status.IN_PROGRESS);
             }
             subtasks.put(subtask.getId(), subtask);
         } else if (subtask.getStatus() == Status.IN_PROGRESS) {
@@ -78,6 +79,8 @@ public class TaskManager {
 
             if (isAllSubtasksStatusNew) {
                 epics.get(subtask.getEpicId()).setStatus(Status.NEW);
+            } else {
+                epics.get(subtask.getEpicId()).setStatus(Status.IN_PROGRESS);
             }
             subtasks.put(subtask.getId(), subtask);
         }
