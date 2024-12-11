@@ -1,4 +1,5 @@
 import enums.Status;
+import manager.Managers;
 import manager.TaskManager;
 import tasks.Epic;
 import tasks.Subtask;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager taskmanager = new TaskManager();
+
+        Managers managers = new Managers();
+        TaskManager taskmanager = managers.getDefault();
 
         Task task1 = new Task("task1Name","task1Description", Status.NEW );
         Task task2 = new Task("task2Name","task2Description",Status.NEW );
@@ -24,11 +27,11 @@ public class Main {
         taskmanager.add(task2);
 
         taskmanager.add(epic1);
-        taskmanager.add(subtask1, 3);
-        taskmanager.add(subtask2, 3);
+        taskmanager.add(subtask1);
+        taskmanager.add(subtask2);
 
         taskmanager.add(epic2);
-        taskmanager.add(subtask3, 6);
+        taskmanager.add(subtask3);
 
         System.out.println(taskmanager.getTasks());
         System.out.println(taskmanager.getEpics());
