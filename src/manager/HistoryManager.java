@@ -10,5 +10,4 @@ public interface HistoryManager {
 
     List<Task> getHistory();
 
-    Task getHistoryByIndex(int id);
 }

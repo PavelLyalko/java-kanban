@@ -72,8 +72,6 @@ class ManagersTest {
         manager.update(currentTask);
         manager.getTaskById(1);
 
-        HistoryManager historyManager = new InMemoryHistoryManager();
-
-        Assertions.assertNotEquals(historyManager.getHistoryByIndex(0), manager.getTaskById(1));
+        Assertions.assertNotEquals(manager.getHistory().get(0).getName(),  manager.getTaskById(1).getName());
     }
 }

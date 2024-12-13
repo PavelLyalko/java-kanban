@@ -21,7 +21,9 @@ public interface TaskManager {
 
     void clearTasks();
 
-    void clearEpicsAndSubtasks();
+    void clearSubtasks();
+
+    void clearEpics();
 
     void deleteTask(Integer id);
 
