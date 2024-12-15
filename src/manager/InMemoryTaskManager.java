@@ -19,10 +19,6 @@ public class InMemoryTaskManager implements TaskManager {
     private int nextId = 1;
     private HistoryManager historyManager = getDefaultHistory();
 
-    public HistoryManager getHistoryManager() {
-        return historyManager;
-    }
-
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
@@ -136,6 +132,10 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void clearSubtasks() {
         subtasks.clear();
+
+        for (Epic epic : epics.values()) {
+            epic.getSubtasksId().clear();
+        }
     }
 
     @Override
@@ -216,6 +216,5 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return allTasks;
     }
-
 
 }

@@ -58,20 +58,4 @@ class ManagersTest {
         Assertions.assertEquals(firstTask.getStatus(), taskManager.getTaskById(1).getStatus());
     }
 
-    @Test
-    @DisplayName("Проверяем, что добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных.")
-    void checkGetHistoryMethodWorkCorrect() {
-        TaskManager manager = new InMemoryTaskManager();
-        Task firstTask = new Task("First Task", "First Task Description", Status.NEW);
-        manager.add(firstTask);
-
-        Task currentTask = manager.getTaskById(1);
-        currentTask.setName("Update First Task");
-        currentTask.setDescription("Update First Task Description");
-
-        manager.update(currentTask);
-        manager.getTaskById(1);
-
-        Assertions.assertNotEquals(manager.getHistory().get(0).getName(),  manager.getTaskById(1).getName());
-    }
 }

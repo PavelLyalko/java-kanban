@@ -16,6 +16,7 @@ public class InMemoryHistoryManager implements HistoryManager{
             for (int i = 1; i <= history.length - 1; i++) {
                 history[i - 1] = history[i];
             }
+            history[9] = task;
         } else {
             for (int i = 0; i < history.length; i++) {
                 if (history[i] == null) {
@@ -53,9 +54,5 @@ public class InMemoryHistoryManager implements HistoryManager{
             }
         }
         return tasksList;
-    }
-
-    public Task getHistoryByIndex(int id){
-        return history[id];
     }
 }
