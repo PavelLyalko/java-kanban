@@ -5,6 +5,7 @@ import utils.Node;
 
 import java.util.*;
 
+
 public class InMemoryHistoryManager implements HistoryManager {
     private HistoryLinkedHashMap<Integer, Task> historyList = new HistoryLinkedHashMap<>();
 

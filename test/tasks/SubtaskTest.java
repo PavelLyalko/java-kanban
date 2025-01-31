@@ -26,7 +26,7 @@ class SubtaskTest {
 
     @Test
     @DisplayName("Проверяем, что объект Subtask нельзя сделать своим же эпиком")
-    void  checkSubtaskCantBeEpic() {
+    void checkSubtaskCantBeEpic() {
         TaskManager manager = new InMemoryTaskManager();
         Epic epic = new Epic("First Epic", "First Epic Description", new ArrayList<>());
         manager.add(epic);
