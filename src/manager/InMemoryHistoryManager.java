@@ -11,10 +11,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private Map<Integer, Node> historyMap = new HashMap<>();
 
-    public Map<Integer, Node> getHistoryMap() {
-        return historyMap;
-    }
-
     @Override
     public void add(Task task) {
         historyList.linkLast(task);
@@ -35,10 +31,10 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (historyMap.containsKey(task.getId())) {
                 remove(historyMap.get(task.getId()).getIndex());
                 historyList.put(task.getId(), task);
-                historyMap.put(task.getId(), new Node<>(task.getId(), null, task, null));
+                historyMap.put(task.getId(), new Node<>(task.getId(), task));
             } else {
                 historyList.put(task.getId(), task);
-                historyMap.put(task.getId(), new Node<>(task.getId(), null, task, null));
+                historyMap.put(task.getId(), new Node<>(task.getId(), task));
             }
         }
 
