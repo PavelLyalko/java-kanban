@@ -1,15 +1,17 @@
 package manager;
 
 import tasks.Task;
-import utils.Node;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private HistoryLinkedHashMap<Integer, Task> historyList = new HistoryLinkedHashMap<>();
 
-    private Map<Integer, Node> historyMap = new HashMap<>();
+    private Map<Integer, Task> historyMap = new HashMap<>();
 
     @Override
     public void add(Task task) {
@@ -18,7 +20,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        historyList.remove(historyMap.get(id).getIndex());
+        historyList.remove(historyMap.get(id).getId());
     }
 
     @Override
@@ -29,13 +31,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     class HistoryLinkedHashMap<K, V> extends LinkedHashMap<K, V> {
         public void linkLast(Task task) {
             if (historyMap.containsKey(task.getId())) {
-                remove(historyMap.get(task.getId()).getIndex());
-                historyList.put(task.getId(), task);
-                historyMap.put(task.getId(), new Node<>(task.getId(), task));
-            } else {
-                historyList.put(task.getId(), task);
-                historyMap.put(task.getId(), new Node<>(task.getId(), task));
+                historyList.remove(task.getId());
             }
+            historyList.put(task.getId(), task);
+            historyMap.put(task.getId(),  task);
         }
 
         public List<Task> getTasks() {

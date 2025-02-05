@@ -33,6 +33,8 @@ public class InMemoryHistoryManagerTest {
         manager.getTaskById(task1.getId());
         manager.getTaskById(task2.getId());
 
+        System.out.println(manager.getHistory());
+
         assertEquals(task1, manager.getHistory().get(2));
         assertEquals(task2, manager.getHistory().get(3));
         assertEquals(task3, manager.getHistory().get(0));
