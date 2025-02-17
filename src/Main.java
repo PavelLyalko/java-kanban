@@ -1,25 +1,20 @@
-import enums.Status;
-import manager.HistoryManager;
-import manager.InMemoryTaskManager;
 import manager.TaskManager;
-import tasks.Epic;
-import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Main {
     public static void main(String[] args) {
+        Map<String, String> test = new HashMap<>();
 
-        TaskManager taskManager = new InMemoryTaskManager();
-        Epic epic1 = new Epic("First Epic", "First Epic Description", Status.NEW, new ArrayList<>());
-        taskManager.add(epic1);
-        taskManager.add(new Subtask("First SubTask", "First SubTask Description", Status.NEW, epic1.getId()));
-        taskManager.add(new Task("First Task", "First Task Description", Status.NEW));
-        taskManager.add(new Task("Second Task", "Second Task Description", Status.NEW));
+        test.put("1", "10");
+        test.put("2", "20");
+        test.put("3", "30");
 
-        printAllTasks(taskManager);
+        System.out.println(test.get(1));
+
     }
 
     private static void printAllTasks(TaskManager manager) {

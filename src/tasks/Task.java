@@ -10,12 +10,11 @@ public class Task {
     private Status status;
     private int id;
 
-    public Task(String name, String description, Status status) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.status = Status.NEW;
     }
-
 
     public String getName() {
         return name;
@@ -39,6 +38,7 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+
     }
 
     @Override
@@ -61,11 +61,4 @@ public class Task {
         return Objects.hashCode(id);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

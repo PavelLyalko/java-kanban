@@ -1,12 +1,12 @@
 package manager;
 
-import enums.Status;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 class ManagersTest {
 
@@ -21,26 +21,25 @@ class ManagersTest {
         TaskManager taskManager4 = managers.getDefault();
         TaskManager taskManager5 = managers.getDefault();
 
-        Assertions.assertNotNull(taskManager1);
-        Assertions.assertNotNull(taskManager2);
-        Assertions.assertNotNull(taskManager3);
-        Assertions.assertNotNull(taskManager4);
-        Assertions.assertNotNull(taskManager5);
-
+        assertNotNull(taskManager1);
+        assertNotNull(taskManager2);
+        assertNotNull(taskManager3);
+        assertNotNull(taskManager4);
+        assertNotNull(taskManager5);
     }
 
     @Test
     @DisplayName("Проверяем, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;")
     void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
         TaskManager manager = new InMemoryTaskManager();
-        Task firstTask = new Task("First Task", "First Task Description", Status.NEW);
+        Task firstTask = new Task("First Task", "First Task Description");
         manager.add(firstTask);
 
-        Task secondTask = new Task("Second Task", "Second Task Description", Status.NEW);
+        Task secondTask = new Task("Second Task", "Second Task Description");
         secondTask.setId(1);
         manager.add(secondTask);
 
-        Assertions.assertEquals(1, manager.getTasks().size());
+        assertEquals(1, manager.getTasks().size());
     }
 
     @Test
@@ -48,14 +47,13 @@ class ManagersTest {
     void checkCorrectTaskFieldWhenAddMap() {
         TaskManager taskManager = new InMemoryTaskManager();
 
-        Task firstTask = new Task("First Task", "First Task Description", Status.NEW);
-        firstTask.setId(1);
+        Task firstTask = new Task("First Task", "First Task Description");
         taskManager.add(firstTask);
 
-        Assertions.assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());
-        Assertions.assertEquals(firstTask.getName(), taskManager.getTaskById(1).getName());
-        Assertions.assertEquals(firstTask.getDescription(), taskManager.getTaskById(1).getDescription());
-        Assertions.assertEquals(firstTask.getStatus(), taskManager.getTaskById(1).getStatus());
+        assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());
+        assertEquals(firstTask.getName(), taskManager.getTaskById(1).getName());
+        assertEquals(firstTask.getDescription(), taskManager.getTaskById(1).getDescription());
+        assertEquals(firstTask.getStatus(), taskManager.getTaskById(1).getStatus());
     }
 
 }

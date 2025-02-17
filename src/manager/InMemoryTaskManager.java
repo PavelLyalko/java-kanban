@@ -26,7 +26,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void add(Task task) {
-
         if (tasks.containsKey(task.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
