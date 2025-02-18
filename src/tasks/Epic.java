@@ -1,12 +1,14 @@
 package tasks;
 
+import enums.Type;
+
 import java.util.List;
 
 public class Epic extends Task {
     private List<Integer> subtasksId;
 
-    public Epic(String name, String description, List<Integer> subtasksId) {
-        super(name, description);
+    public Epic(Type type, String name, String description, List<Integer> subtasksId) {
+        super(type, name, description);
         this.subtasksId = subtasksId;
     }
 

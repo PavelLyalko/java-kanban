@@ -13,11 +13,12 @@ import java.util.Map;
 import static manager.Managers.getDefaultHistory;
 
 public class InMemoryTaskManager implements TaskManager {
-    private Map<Integer, Task> tasks = new HashMap<>();
+    private  Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, Subtask> subtasks = new HashMap<>();
     private int nextId = 1;
     private HistoryManager historyManager = getDefaultHistory();
+
 
     @Override
     public List<Task> getHistory() {

@@ -1,6 +1,7 @@
 package tasks;
 
 import enums.Status;
+import enums.Type;
 
 import java.util.Objects;
 
@@ -9,8 +10,10 @@ public class Task {
     private String description;
     private Status status;
     private int id;
+    private Type type;
 
-    public Task(String name, String description) {
+    public Task(Type type, String name, String description) {
+        this.type = type;
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
@@ -43,9 +46,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status;
+        return id + '\'' +
+                "," + type +
+                "," + name +
+                "," + status +
+                "," + description;
     }
 
     @Override
@@ -61,4 +66,11 @@ public class Task {
         return Objects.hashCode(id);
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 }
