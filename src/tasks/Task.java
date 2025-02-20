@@ -70,7 +70,4 @@ public class Task {
         return type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
 }

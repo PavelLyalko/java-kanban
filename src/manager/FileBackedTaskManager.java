@@ -4,6 +4,7 @@ import enums.Type;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
+import utils.Loader;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,12 +29,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
         } else {
             System.out.println("Файл не найден!");
+
+            return null;
         }
         return new FileBackedTaskManager();
     }
 
     public void save() {
-        try (BufferedWriter br = new BufferedWriter(new FileWriter("file.txt"))) {
+        Loader.loadPropertiesToMap().get("filename");
+
+        try (BufferedWriter br = new BufferedWriter(new FileWriter("test"))) {
             br.write("id,type,name,status,description,epic \n");
             for (Task task : getTasks()) {
                 br.write(task.toString() + ",\n");
@@ -59,10 +64,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             return new Task(Type.TASK, task[2], task[4]);
         } else if (task[1].equals(Type.EPIC.toString())) {
             return new Epic(Type.EPIC, task[2], task[4], new ArrayList<>());
-        } else {
+        } else if (task[1].equals(Type.SUBTASK.toString())){
             return new Subtask(Type.SUBTASK, task[2], task[4], Integer.parseInt(task[5]));
         }
-
+        return null;
     }
 
     @Override
