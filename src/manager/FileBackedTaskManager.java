@@ -64,7 +64,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             return new Task(Type.TASK, task[2], task[4]);
         } else if (task[1].equals(Type.EPIC.toString())) {
             return new Epic(Type.EPIC, task[2], task[4], new ArrayList<>());
-        } else if (task[1].equals(Type.SUBTASK.toString())){
+        } else if (task[1].equals(Type.SUBTASK.toString())) {
             return new Subtask(Type.SUBTASK, task[2], task[4], Integer.parseInt(task[5]));
         }
         return null;
