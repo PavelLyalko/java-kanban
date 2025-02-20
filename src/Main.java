@@ -1,20 +1,15 @@
+import manager.FileBackedTaskManager;
 import manager.TaskManager;
 import tasks.Task;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, String> test = new HashMap<>();
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+        fileBackedTaskManager.loadFromFile(new File("file.txt"));
 
-        test.put("1", "10");
-        test.put("2", "20");
-        test.put("3", "30");
-
-        System.out.println(test.get(1));
-
+        System.out.println(fileBackedTaskManager.getTasks());
     }
 
     private static void printAllTasks(TaskManager manager) {

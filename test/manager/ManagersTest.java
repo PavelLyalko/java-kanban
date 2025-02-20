@@ -1,5 +1,6 @@
 package manager;
 
+import enums.Type;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
@@ -32,10 +33,10 @@ class ManagersTest {
     @DisplayName("Проверяем, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;")
     void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
         TaskManager manager = new InMemoryTaskManager();
-        Task firstTask = new Task("First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK,"First Task", "First Task Description");
         manager.add(firstTask);
 
-        Task secondTask = new Task("Second Task", "Second Task Description");
+        Task secondTask = new Task(Type.TASK,"Second Task", "Second Task Description");
         secondTask.setId(1);
         manager.add(secondTask);
 
@@ -47,7 +48,7 @@ class ManagersTest {
     void checkCorrectTaskFieldWhenAddMap() {
         TaskManager taskManager = new InMemoryTaskManager();
 
-        Task firstTask = new Task("First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK,"First Task", "First Task Description");
         taskManager.add(firstTask);
 
         assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());
