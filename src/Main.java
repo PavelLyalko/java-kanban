@@ -3,11 +3,12 @@ import manager.TaskManager;
 import tasks.Task;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
-        fileBackedTaskManager.loadFromFile(new File("file.txt"));
+    public static void main(String[] args) throws FileNotFoundException {
+        FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(new File("file.txt"));
+        printAllTasks(fileBackedTaskManager);
 
         System.out.println(fileBackedTaskManager.getTasks());
     }

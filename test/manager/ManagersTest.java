@@ -5,22 +5,20 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
+import static manager.Managers.getDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
-class ManagersTest {
+public class ManagersTest {
 
     @Test
     @DisplayName("Убеждаемся, что утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров")
     void utilitarianClassAlwaysReturnGoodObjects() {
-        Managers managers = new Managers();
-
-        TaskManager taskManager1 = managers.getDefault();
-        TaskManager taskManager2 = managers.getDefault();
-        TaskManager taskManager3 = managers.getDefault();
-        TaskManager taskManager4 = managers.getDefault();
-        TaskManager taskManager5 = managers.getDefault();
+        TaskManager taskManager1 = Managers.getDefault();
+        TaskManager taskManager2 = Managers.getDefault();
+        TaskManager taskManager3 = Managers.getDefault();
+        TaskManager taskManager4 = Managers.getDefault();
+        TaskManager taskManager5 = Managers.getDefault();
 
         assertNotNull(taskManager1);
         assertNotNull(taskManager2);
@@ -32,11 +30,12 @@ class ManagersTest {
     @Test
     @DisplayName("Проверяем, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;")
     void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
-        TaskManager manager = new InMemoryTaskManager();
-        Task firstTask = new Task(Type.TASK,"First Task", "First Task Description");
+        TaskManager manager = getDefault();
+        manager.clearAll();
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
         manager.add(firstTask);
 
-        Task secondTask = new Task(Type.TASK,"Second Task", "Second Task Description");
+        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description");
         secondTask.setId(1);
         manager.add(secondTask);
 
@@ -46,9 +45,10 @@ class ManagersTest {
     @Test
     @DisplayName("Проверяем неизменность задачи (по всем полям) при добавлении задачи в менеджер")
     void checkCorrectTaskFieldWhenAddMap() {
-        TaskManager taskManager = new InMemoryTaskManager();
+        TaskManager taskManager = getDefault();
+        taskManager.clearAll();
 
-        Task firstTask = new Task(Type.TASK,"First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
         taskManager.add(firstTask);
 
         assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());
