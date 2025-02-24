@@ -7,8 +7,6 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryTaskManagerTest {
@@ -17,7 +15,7 @@ public class InMemoryTaskManagerTest {
     @DisplayName("Проверяем, что InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;")
     void checkCorrectWorkInMemoryTaskManagerClassOnAddOtherTasksAndGetByIdThemTest() {
         TaskManager taskManager = new InMemoryTaskManager();
-        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description", new ArrayList<>());
+        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
         taskManager.add(epic);
         Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId());
         taskManager.add(subtask);
@@ -38,7 +36,7 @@ public class InMemoryTaskManagerTest {
     @DisplayName("Проверяем что внутри эпиков не должно оставаться неактуальных id подзадач.")
     void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() {
         TaskManager taskManager = new InMemoryTaskManager();
-        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description", new ArrayList<>());
+        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
         taskManager.add(epic);
         Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId());
         taskManager.add(subtask);
