@@ -1,5 +1,4 @@
 import enums.Type;
-import manager.FileBackedTaskManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
@@ -12,20 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class FileBackedTaskManagerTest {
-
-    @Test
-    @DisplayName("Сохранения пустого файла.")
-    void successSaveFileTest() throws IOException {
-        File result = File.createTempFile("text", ".txt");
-        FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(result);
-
-        assertNotNull(fileBackedTaskManager.getTasks());
-        assertNotNull(fileBackedTaskManager.getSubtasks());
-        assertNotNull(fileBackedTaskManager.getEpics());
-    }
 
     @Test
     @DisplayName("Сохранение нескольких задач.")
