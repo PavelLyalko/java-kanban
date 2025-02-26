@@ -38,6 +38,7 @@ public class InMemoryHistoryManagerTest {
         assertEquals(task2, manager.getHistory().get(3));
         assertEquals(task3, manager.getHistory().get(0));
         assertEquals(task4, manager.getHistory().get(1));
+        manager.clearAll();
     }
 
     @Test
