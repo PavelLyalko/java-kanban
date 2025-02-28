@@ -1,20 +1,16 @@
+import manager.FileBackedTaskManager;
 import manager.TaskManager;
 import tasks.Task;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
-        Map<String, String> test = new HashMap<>();
+    public static void main(String[] args) throws FileNotFoundException {
+        FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(new File("file.txt"));
+        printAllTasks(fileBackedTaskManager);
 
-        test.put("1", "10");
-        test.put("2", "20");
-        test.put("3", "30");
-
-        System.out.println(test.get(1));
-
+        System.out.println(fileBackedTaskManager.getTasks());
     }
 
     private static void printAllTasks(TaskManager manager) {

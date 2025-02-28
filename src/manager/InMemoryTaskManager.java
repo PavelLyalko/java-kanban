@@ -13,10 +13,10 @@ import java.util.Map;
 import static manager.Managers.getDefaultHistory;
 
 public class InMemoryTaskManager implements TaskManager {
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
-    private Map<Integer, Subtask> subtasks = new HashMap<>();
-    private int nextId = 1;
+    protected static Map<Integer, Task> tasks = new HashMap<>();
+    protected static Map<Integer, Epic> epics = new HashMap<>();
+    protected static Map<Integer, Subtask> subtasks = new HashMap<>();
+    private static int nextId = 1;
     private HistoryManager historyManager = getDefaultHistory();
 
     @Override
@@ -24,31 +24,37 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
+
     @Override
     public void add(Task task) {
+        System.out.println(nextId);
         if (tasks.containsKey(task.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
             task.setId(nextId++);
             task.setStatus(Status.NEW);
             tasks.put(task.getId(), task);
+            System.out.println("task.getId() - " + task.getId());
+            System.out.println("task - " + task);
         }
     }
 
     @Override
     public void add(Epic epic) {
-        if (tasks.containsKey(epic.getId())) {
+        if (epics.containsKey(epic.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
             epic.setId(nextId++);
             epic.setStatus(Status.NEW);
             epics.put(epic.getId(), epic);
+            System.out.println(epic);
         }
+        System.out.println("1");
     }
 
     @Override
     public void add(Subtask subtask) {
-        if (tasks.containsKey(subtask.getId())) {
+        if (subtasks.containsKey(subtask.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
             if (subtasks.containsKey(subtask.getEpicId())) {
@@ -65,6 +71,14 @@ public class InMemoryTaskManager implements TaskManager {
                 System.out.println("Не найден Epic для Subtask");
             }
         }
+    }
+
+    @Override
+    public void clearAll() {
+        clearTasks();
+        clearSubtasks();
+        clearEpics();
+        setNextId(1);
     }
 
     @Override
@@ -214,6 +228,10 @@ public class InMemoryTaskManager implements TaskManager {
             allTasks.add(subtasks.get(currentId));
         }
         return allTasks;
+    }
+
+    protected static void setNextId(int Id) {
+        nextId = Id;
     }
 
 }

@@ -1,3 +1,4 @@
+import enums.Type;
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
 import org.junit.jupiter.api.DisplayName;
@@ -6,7 +7,7 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
+import static manager.Managers.getDefault;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,12 +16,13 @@ public class InMemoryTaskManagerTest {
     @Test
     @DisplayName("Проверяем, что InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;")
     void checkCorrectWorkInMemoryTaskManagerClassOnAddOtherTasksAndGetByIdThemTest() {
-        TaskManager taskManager = new InMemoryTaskManager();
-        Epic epic = new Epic("First Epic", "First Epic Description", new ArrayList<>());
+        TaskManager taskManager = getDefault();
+        taskManager.clearAll();
+        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
         taskManager.add(epic);
-        Subtask subtask = new Subtask("First SubTask", "First SubTask  Description", epic.getId());
+        Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId());
         taskManager.add(subtask);
-        Task task = new Task("First Task", "First Task Description");
+        Task task = new Task(Type.TASK, "First Task", "First Task Description");
         taskManager.add(task);
 
         assertEquals(1, taskManager.getTasks().size());
@@ -37,9 +39,11 @@ public class InMemoryTaskManagerTest {
     @DisplayName("Проверяем что внутри эпиков не должно оставаться неактуальных id подзадач.")
     void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() {
         TaskManager taskManager = new InMemoryTaskManager();
-        Epic epic = new Epic("First Epic", "First Epic Description", new ArrayList<>());
+        taskManager.clearAll();
+        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
         taskManager.add(epic);
-        Subtask subtask = new Subtask("First SubTask", "First SubTask  Description", epic.getId());
+
+        Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId());
         taskManager.add(subtask);
 
         assertEquals(1, epic.getSubtasksId().size());
@@ -48,4 +52,6 @@ public class InMemoryTaskManagerTest {
 
         assertEquals(0, epic.getSubtasksId().size());
     }
+
+
 }

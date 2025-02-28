@@ -1,3 +1,4 @@
+import enums.Type;
 import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
@@ -14,16 +15,16 @@ public class InMemoryHistoryManagerTest {
     @DisplayName("Провенряем корректность заполнения истории")
     void checkAddTestHistoryMethodWorkCorrectTest() {
         TaskManager manager = new InMemoryTaskManager();
-        Task task1 = new Task("Task 1", "Task Description 1");
+        Task task1 = new Task(Type.TASK,"Task 1", "Task Description 1");
         manager.add(task1);
         manager.getTaskById(task1.getId());
-        Task task2 = new Task("Task 2", "Task Description 2");
+        Task task2 = new Task(Type.TASK,"Task 2", "Task Description 2");
         manager.add(task2);
         manager.getTaskById(task2.getId());
-        Task task3 = new Task("Task 3", "Task Description 3");
+        Task task3 = new Task(Type.TASK,"Task 3", "Task Description 3");
         manager.add(task3);
         manager.getTaskById(task3.getId());
-        Task task4 = new Task("Task 4", "Task Description 4");
+        Task task4 = new Task(Type.TASK,"Task 4", "Task Description 4");
         manager.add(task4);
         manager.getTaskById(task4.getId());
 
@@ -33,19 +34,18 @@ public class InMemoryHistoryManagerTest {
         manager.getTaskById(task1.getId());
         manager.getTaskById(task2.getId());
 
-        System.out.println(manager.getHistory());
-
         assertEquals(task1, manager.getHistory().get(2));
         assertEquals(task2, manager.getHistory().get(3));
         assertEquals(task3, manager.getHistory().get(0));
         assertEquals(task4, manager.getHistory().get(1));
+        manager.clearAll();
     }
 
     @Test
     @DisplayName("Проверяем корректность добавления и удаления просмотра задачи из истории")
     void checkCorrectAddAndRemoveTaskInHistoryTest() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-        Task task = new Task("Task ", "Task Description");
+        Task task = new Task(Type.TASK,"Task ", "Task Description");
         task.setId(1);
         historyManager.add(task);
 
