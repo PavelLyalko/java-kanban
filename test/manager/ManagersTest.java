@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
+import java.time.LocalDateTime;
+
 import static manager.Managers.getDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,10 +34,10 @@ public class ManagersTest {
     void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
         TaskManager manager = getDefault();
         manager.clearAll();
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1,1,1,1,1));
         manager.add(firstTask);
 
-        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description");
+        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description", 60, LocalDateTime.of(2025, 2,1,1,1,1));
         secondTask.setId(1);
         manager.add(secondTask);
 
@@ -48,7 +50,7 @@ public class ManagersTest {
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
 
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 2,1,1,1,1));
         taskManager.add(firstTask);
 
         assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());

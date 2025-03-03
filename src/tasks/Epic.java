@@ -1,12 +1,13 @@
 package tasks;
 
 import enums.Type;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
     private List<Integer> subtasksId;
+    private LocalDateTime endTime;
 
     public Epic(Type type, String name, String description) {
         super(type, name, description);
@@ -26,5 +27,16 @@ public class Epic extends Task {
         if (this.getId() != id) {
             subtasksId.add(id);
         }
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        endTime = getStartTime().plus(getDuration());
+        return endTime;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "," + (endTime != null ? endTime.toString() : "");
     }
 }

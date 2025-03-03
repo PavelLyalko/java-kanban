@@ -43,10 +43,11 @@ public interface TaskManager {
 
     Subtask getSubtaskById(int id);
 
-    List<Task> getEpicSubtasks(int id);
+    List<Subtask> getEpicSubtasks(int id);
 
     List<Task> getHistory();
 
     void clearAll();
 
+    List<Task> getPrioritizedTasks();
 }

@@ -2,16 +2,18 @@ package tasks;
 
 import enums.Type;
 
+import java.time.LocalDateTime;
+
 public class Subtask extends Task {
     private int epicId;
 
-    public Subtask(Type type, String name, String description, int epicId) {
-        super(type, name, description);
+    public Subtask(Type type, String name, String description, int epicId, int duration, LocalDateTime startTime) {
+        super(type, name, description, duration, startTime);
         this.epicId = epicId;
     }
 
-    public Subtask(int id, Type type, String name, String description, int epicId) {
-        super(id, type, name, description);
+    public Subtask(int id, Type type, String name, String description, int epicId, int duration, LocalDateTime startTime) {
+        super(id, type, name, description, duration, startTime);
         this.epicId = epicId;
     }
 
