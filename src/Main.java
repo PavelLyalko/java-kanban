@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(new File("file.txt"));
 
-//        Task firstTask = new Task(1, Type.TASK, "First Task", "First Task Description", 120, LocalDateTime.of(2000, 1, 1, 12, 0));
-//        fileBackedTaskManager.add(firstTask);
-//        Task secondTask = new Task(2, Type.TASK, "Second Task", "Second Task Description", 120, LocalDateTime.of(2000, 1, 1, 17, 30));
-//        fileBackedTaskManager.add(secondTask);
+        Task firstTask = new Task(1, Type.TASK, "First Task", "First Task Description", 120, LocalDateTime.of(2000, 1, 1, 12, 0));
+        fileBackedTaskManager.add(firstTask);
+        Task secondTask = new Task(2, Type.TASK, "Second Task", "Second Task Description", 120, LocalDateTime.of(2000, 1, 1, 17, 30));
+        fileBackedTaskManager.add(secondTask);
 
         printAllTasks(fileBackedTaskManager);
 
