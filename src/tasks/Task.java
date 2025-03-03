@@ -3,6 +3,9 @@ package tasks;
 import enums.Status;
 import enums.Type;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import java.util.Objects;
 
 public class Task {
@@ -11,6 +14,33 @@ public class Task {
     private Status status;
     private int id;
     private Type type;
+    private Duration duration;
+    private LocalDateTime startTime;
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public Task(Type type, String name, String description, int duration, LocalDateTime startTime) {
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
+    }
 
     public Task(Type type, String name, String description) {
         this.type = type;
@@ -19,12 +49,26 @@ public class Task {
         this.status = Status.NEW;
     }
 
+    public Task(int id, Type type, String name, String description, int duration, LocalDateTime startTime) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
+    }
+
     public Task(int id, Type type, String name, String description) {
         this.id = id;
         this.type = type;
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     public String getName() {
@@ -49,7 +93,6 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
-
     }
 
     @Override
@@ -58,7 +101,9 @@ public class Task {
                 "," + type +
                 "," + name +
                 "," + status +
-                "," + description;
+                "," + description +
+                "," + (startTime != null ? startTime.toString() : "") +
+                "," + (duration != null ? duration.toMinutes() : "");
     }
 
     @Override

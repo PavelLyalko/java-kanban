@@ -13,6 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private static File file;
@@ -51,17 +55,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void save() {
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))) {
             br.write("id,type,name,status,description,epic \n");
-            for (Task task : getTasks()) {
-                br.write(task.toString() + ",\n");
-            }
 
-            for (Epic epic : getEpics()) {
-                br.write(epic.toString() + ",\n");
-            }
-
-            for (Subtask subtask : getSubtasks()) {
-                br.write(subtask.toString() + ",\n");
-            }
+            Stream.concat(Stream.concat(getTasks().stream(), getEpics().stream()), getSubtasks().stream())
+                    .map(Object::toString)
+                    .forEach(taskString -> {
+                        try {
+                            br.write(taskString + ",\n");
+                        } catch (IOException e) {
+                            throw new UncheckedIOException(e);
+                        }
+                    });
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка при записи в файл.");
@@ -72,11 +75,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String[] task = value.split(",");
 
         if (task[1].equals(Type.TASK.toString())) {
-            return new Task(Integer.parseInt(task[0]), Type.TASK, task[2], task[4]);
+            return new Task(Integer.parseInt(task[0]), Type.TASK, task[2], task[4], Integer.parseInt(task[6]), LocalDateTime.parse(task[5]));
         } else if (task[1].equals(Type.EPIC.toString())) {
             return new Epic(Integer.parseInt(task[0]), Type.EPIC, task[2], task[4]);
         } else if (task[1].equals(Type.SUBTASK.toString())) {
-            return new Subtask(Integer.parseInt(task[0]), Type.SUBTASK, task[2], task[4], Integer.parseInt(task[5]));
+            return new Subtask(Integer.parseInt(task[0]), Type.SUBTASK, task[2], task[4], Integer.parseInt(task[5]), Integer.parseInt(task[7]), LocalDateTime.parse(task[6]));
         }
         return null;
     }
