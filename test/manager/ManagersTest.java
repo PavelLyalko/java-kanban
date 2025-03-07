@@ -35,10 +35,10 @@ public class ManagersTest {
     void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() throws TimeIntersectionException {
         TaskManager manager = getDefault();
         manager.clearAll();
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1,1,1,1,1));
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
         manager.add(firstTask);
 
-        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description", 60, LocalDateTime.of(2025, 2,1,1,1,1));
+        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         secondTask.setId(1);
         manager.add(secondTask);
 
@@ -47,11 +47,11 @@ public class ManagersTest {
 
     @Test
     @DisplayName("Проверяем неизменность задачи (по всем полям) при добавлении задачи в менеджер")
-    void checkCorrectTaskFieldWhenAddMap() throws TimeIntersectionException{
+    void checkCorrectTaskFieldWhenAddMap() throws TimeIntersectionException {
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
 
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 2,1,1,1,1));
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         taskManager.add(firstTask);
 
         assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());

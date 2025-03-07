@@ -25,8 +25,8 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @DisplayName("Сохранение нескольких задач.")
     void successSaveTaskTest() throws IOException {
         File file = File.createTempFile("test", ".txt");
-        Task task1 = new Task(1, Type.TASK, "task1", "dasdasd", 60, LocalDateTime.of(2025, 1,1,1,1,1));
-        Task task2 = new Task(2, Type.TASK, "task2", "dasdasd", 60, LocalDateTime.of(2025, 2,1,1,1,1));
+        Task task1 = new Task(1, Type.TASK, "task1", "dasdasd", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
+        Task task2 = new Task(2, Type.TASK, "task2", "dasdasd", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         Epic epic3 = new Epic(3, Type.EPIC, "epic3", "epiiiic");
         Epic epic4 = new Epic(4, Type.EPIC, "epic3", "epiiiic");
         BufferedWriter br = new BufferedWriter(new FileWriter(file));
@@ -47,11 +47,11 @@ abstract class TaskManagerTest<T extends TaskManager> {
     void checkCorrectWorkInMemoryTaskManagerClassOnAddOtherTasksAndGetByIdThemTest() throws TimeIntersectionException {
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
-        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
+        Epic epic = new Epic(Type.EPIC, "First Epic", "First Epic Description");
         taskManager.add(epic);
-        Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId(), 50, LocalDateTime.now());
+        Subtask subtask = new Subtask(Type.SUBTASK, "First SubTask", "First SubTask  Description", epic.getId(), 50, LocalDateTime.now());
         taskManager.add(subtask);
-        Task task = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1,1,1,1,1));
+        Task task = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
         taskManager.add(task);
 
         assertEquals(1, taskManager.getTasks().size());
@@ -66,13 +66,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     @DisplayName("Проверяем что внутри эпиков не должно оставаться неактуальных id подзадач.")
-    void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() throws TimeIntersectionException{
+    void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() throws TimeIntersectionException {
         TaskManager taskManager = new InMemoryTaskManager();
         taskManager.clearAll();
-        Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
+        Epic epic = new Epic(Type.EPIC, "First Epic", "First Epic Description");
         taskManager.add(epic);
 
-        Subtask subtask = new Subtask(Type.SUBTASK,"First SubTask", "First SubTask  Description", epic.getId(), 50, LocalDateTime.now());
+        Subtask subtask = new Subtask(Type.SUBTASK, "First SubTask", "First SubTask  Description", epic.getId(), 50, LocalDateTime.now());
         taskManager.add(subtask);
 
         assertEquals(1, epic.getSubtasksId().size());
@@ -85,13 +85,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     @DisplayName("Проверяем корректность работы приоретизации задач")
-    void checkCorrectnessOfPrioritizationOfTasks() throws TimeIntersectionException{
+    void checkCorrectnessOfPrioritizationOfTasks() throws TimeIntersectionException {
         TaskManager taskManager = new InMemoryTaskManager();
         taskManager.clearAll();
-        Task firstTask = new Task(Type.TASK,"First Task", "First Task Description", 60, LocalDateTime.of(2025,1,1,13,0));
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1, 1, 13, 0));
         taskManager.add(firstTask);
 
-        Task secondTask = new Task(Type.TASK,"Second Task", "Second Task Description", 60, LocalDateTime.of(2025,1,1,11,0));
+        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description", 60, LocalDateTime.of(2025, 1, 1, 11, 0));
         taskManager.add(secondTask);
 
         List<Task> list = taskManager.getPrioritizedTasks();

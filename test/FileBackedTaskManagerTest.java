@@ -20,8 +20,8 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     void testSuccessWorkFileManager() throws IOException, TimeIntersectionException {
         File file = File.createTempFile("test", ".txt");
         FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(file);
-        Task task1 = new Task(Type.TASK, "task1", "dasdasd", 60, LocalDateTime.of(2025, 1,1,1,1,1));
-        Task task2 = new Task(Type.TASK, "task2", "dasdasd", 60, LocalDateTime.of(2025, 2,1,1,1,1));
+        Task task1 = new Task(Type.TASK, "task1", "dasdasd", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
+        Task task2 = new Task(Type.TASK, "task2", "dasdasd", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         fileBackedTaskManager.clearAll();
         fileBackedTaskManager.add(task1);
         fileBackedTaskManager.add(task2);

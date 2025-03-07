@@ -58,7 +58,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void add(Subtask subtask) throws TimeIntersectionException{
+    public void add(Subtask subtask) throws TimeIntersectionException {
         if (subtasks.containsKey(subtask.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
@@ -116,7 +116,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void update(Task task) throws TimeIntersectionException{
+    public void update(Task task) throws TimeIntersectionException {
         if (checkTime(task)) {
             tasks.put(task.getId(), task);
             addPrioritizedTasks(task);
@@ -133,7 +133,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void update(Subtask subtask) throws TimeIntersectionException{
+    public void update(Subtask subtask) throws TimeIntersectionException {
         if (checkTime(subtask)) {
             Epic epic = epics.get(subtask.getEpicId());
 

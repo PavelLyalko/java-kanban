@@ -18,7 +18,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Для подзадач необходимо дополнительно убедиться в наличии связанного эпика.")
-    void makingSureThatThereIsACoherentEpic() throws TimeIntersectionException{
+    void makingSureThatThereIsACoherentEpic() throws TimeIntersectionException {
         InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         Subtask subtask = new Subtask(Type.SUBTASK, "Subtask name", "Subtask Description", 2, 50, LocalDateTime.now());
         inMemoryTaskManager.add(subtask);
@@ -29,7 +29,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем, что если добавить задачу с пересекающимся временем, то сработает валидация и задача не добавится")
-    void checkThatAddTaskWithOverlappingTimeTaskWillNotBeAdded() throws TimeIntersectionException{
+    void checkThatAddTaskWithOverlappingTimeTaskWillNotBeAdded() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Task task1 = new Task(Type.TASK, "task1", "dasdasd", 30, LocalDateTime.of(2025, 1, 1, 12, 0));
@@ -54,7 +54,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем добаление Task")
-    void successAddTaskTest() throws TimeIntersectionException{
+    void successAddTaskTest() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Task task1 = new Task(1, Type.TASK, "task1", "dasdasd", 30, LocalDateTime.of(2025, 1, 1, 12, 0));
@@ -78,7 +78,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем добаление Subtask")
-    void successAddSubtaskTest() throws TimeIntersectionException{
+    void successAddSubtaskTest() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Epic epic1 = new Epic(Type.EPIC, "Epic", "Epic Description");
@@ -105,7 +105,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем коректное обноваление Subtask")
-    void successUpdateSubtaskTest() throws TimeIntersectionException{
+    void successUpdateSubtaskTest() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Epic epic1 = new Epic(Type.EPIC, "Epic", "Epic Description");
@@ -131,7 +131,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем удаление всех Task")
-    void successClearTaskTest() throws TimeIntersectionException{
+    void successClearTaskTest() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Task task1 = new Task(1, Type.TASK, "task1", "dasdasd", 30, LocalDateTime.of(2025, 1, 1, 12, 0));
@@ -142,7 +142,7 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
 
     @Test
     @DisplayName("Проверяем удаление всех Subtask")
-    void successClearSubtaskTest() throws TimeIntersectionException{
+    void successClearSubtaskTest() throws TimeIntersectionException {
         InMemoryTaskManager manager = new InMemoryTaskManager();
         manager.clearAll();
         Epic epic1 = new Epic(Type.EPIC, "Epic", "Epic Description");
