@@ -3,6 +3,7 @@ package tasks;
 import enums.Status;
 import enums.Type;
 
+import exceptions.TimeIntersectionException;
 import manager.InMemoryTaskManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class EpicTest {
 
     @Test
     @DisplayName("Проверяет граничные условия Epic")
-    void rechecksEpicBoundaryConditions() {
+    void rechecksEpicBoundaryConditions() throws TimeIntersectionException {
         InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         Epic epic = new Epic(Type.EPIC,"Epic", "Epic Description");
         inMemoryTaskManager.add(epic);

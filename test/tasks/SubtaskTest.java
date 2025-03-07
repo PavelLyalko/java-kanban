@@ -1,6 +1,7 @@
 package tasks;
 
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ class SubtaskTest {
 
     @Test
     @DisplayName("Проверяем, что объект Subtask нельзя сделать своим же эпиком")
-    void checkSubtaskCantBeEpic() {
+    void checkSubtaskCantBeEpic() throws TimeIntersectionException {
         TaskManager manager = new InMemoryTaskManager();
         manager.clearEpics();
         Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");

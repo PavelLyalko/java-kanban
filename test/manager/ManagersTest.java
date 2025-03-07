@@ -1,6 +1,7 @@
 package manager;
 
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
@@ -31,7 +32,7 @@ public class ManagersTest {
 
     @Test
     @DisplayName("Проверяем, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;")
-    void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
+    void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() throws TimeIntersectionException {
         TaskManager manager = getDefault();
         manager.clearAll();
         Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1,1,1,1,1));
@@ -46,7 +47,7 @@ public class ManagersTest {
 
     @Test
     @DisplayName("Проверяем неизменность задачи (по всем полям) при добавлении задачи в менеджер")
-    void checkCorrectTaskFieldWhenAddMap() {
+    void checkCorrectTaskFieldWhenAddMap() throws TimeIntersectionException{
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
 

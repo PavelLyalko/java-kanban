@@ -1,4 +1,5 @@
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
@@ -15,7 +16,7 @@ public class InMemoryHistoryManagerTest {
 
     @Test
     @DisplayName("Провенряем корректность заполнения истории")
-    void checkAddTestHistoryMethodWorkCorrectTest() {
+    void checkAddTestHistoryMethodWorkCorrectTest() throws TimeIntersectionException {
         TaskManager manager = new InMemoryTaskManager();
         Task task1 = new Task(Type.TASK,"Task 1", "Task Description 1", 60, LocalDateTime.of(2025, 1,1,1,1,1));
         manager.add(task1);

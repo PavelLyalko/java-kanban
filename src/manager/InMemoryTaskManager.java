@@ -1,11 +1,11 @@
 package manager;
 
 import enums.Status;
+import exceptions.TimeIntersectionException;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 import utils.TaskComparator;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +21,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected static Map<Integer, Task> tasks = new HashMap<>();
     protected static Map<Integer, Epic> epics = new HashMap<>();
     protected static Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected Set<Task> prioritizedTasks = new TreeSet<>(new TaskComparator());
     private static int nextId = 1;
     private HistoryManager historyManager = getDefaultHistory();
 
@@ -30,7 +31,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void add(Task task) {
+    public void add(Task task) throws TimeIntersectionException {
         if (tasks.containsKey(task.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
@@ -38,8 +39,9 @@ public class InMemoryTaskManager implements TaskManager {
                 task.setId(nextId++);
                 task.setStatus(Status.NEW);
                 tasks.put(task.getId(), task);
+                addPrioritizedTasks(task);
             } else {
-                throw new RuntimeException("Время выполнения задачи уже занято!");
+                throw new TimeIntersectionException("Время выполнения задачи уже занято!");
             }
         }
     }
@@ -56,7 +58,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void add(Subtask subtask) {
+    public void add(Subtask subtask) throws TimeIntersectionException{
         if (subtasks.containsKey(subtask.getId())) {
             System.out.println("Не уникальный ID!");
         } else {
@@ -75,8 +77,10 @@ public class InMemoryTaskManager implements TaskManager {
                     epics.get(subtask.getEpicId()).getEndTime();
 
                     epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
+
+                    addPrioritizedTasks(subtask);
                 } else {
-                    throw new RuntimeException("Время выполнения задачи уже занято!");
+                    throw new TimeIntersectionException("Время выполнения задачи уже занято!");
                 }
 
             } else {
@@ -112,11 +116,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void update(Task task) {
+    public void update(Task task) throws TimeIntersectionException{
         if (checkTime(task)) {
             tasks.put(task.getId(), task);
+            addPrioritizedTasks(task);
         } else {
-            throw new RuntimeException("Время выполнения задачи уже занято!");
+            throw new TimeIntersectionException("Время выполнения задачи уже занято!");
         }
     }
 
@@ -128,7 +133,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void update(Subtask subtask) {
+    public void update(Subtask subtask) throws TimeIntersectionException{
         if (checkTime(subtask)) {
             Epic epic = epics.get(subtask.getEpicId());
 
@@ -154,8 +159,9 @@ public class InMemoryTaskManager implements TaskManager {
                     break;
             }
             subtasks.put(subtask.getId(), subtask);
+            addPrioritizedTasks(subtask);
         } else {
-            throw new RuntimeException("Время выполнения задачи уже занято!");
+            throw new TimeIntersectionException("Время выполнения задачи уже занято!");
         }
     }
 
@@ -256,18 +262,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getPrioritizedTasks() {
-        Set<Task> taskSet = new TreeSet<>(new TaskComparator());
-
-        addTask(tasks, taskSet);
-        addTask(subtasks, taskSet);
-
-        return new ArrayList<>(taskSet);
+        return new ArrayList<>(prioritizedTasks);
     }
 
-    private void addTask(Map<Integer, ? extends Task> map, Set<Task> set) {
-        map.values().stream()
-                .filter(task -> task.getStartTime() != null)
-                .forEach(set::add);
+    private void addPrioritizedTasks(Task task) {
+        if (task.getStartTime() != null) {
+            prioritizedTasks.add(task);
+        }
     }
 
     private boolean checkTime(Task task) {

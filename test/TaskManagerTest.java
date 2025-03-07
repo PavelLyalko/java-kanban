@@ -1,4 +1,5 @@
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import manager.FileBackedTaskManager;
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
@@ -43,7 +44,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     @DisplayName("Проверяем, что InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;")
-    void checkCorrectWorkInMemoryTaskManagerClassOnAddOtherTasksAndGetByIdThemTest() {
+    void checkCorrectWorkInMemoryTaskManagerClassOnAddOtherTasksAndGetByIdThemTest() throws TimeIntersectionException {
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
         Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
@@ -65,7 +66,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     @DisplayName("Проверяем что внутри эпиков не должно оставаться неактуальных id подзадач.")
-    void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() {
+    void whenSubtaskRemoveThatEpicDoesNotExistHisIdTest() throws TimeIntersectionException{
         TaskManager taskManager = new InMemoryTaskManager();
         taskManager.clearAll();
         Epic epic = new Epic(Type.EPIC,"First Epic", "First Epic Description");
@@ -84,7 +85,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     @DisplayName("Проверяем корректность работы приоретизации задач")
-    void checkCorrectnessOfPrioritizationOfTasks() {
+    void checkCorrectnessOfPrioritizationOfTasks() throws TimeIntersectionException{
         TaskManager taskManager = new InMemoryTaskManager();
         taskManager.clearAll();
         Task firstTask = new Task(Type.TASK,"First Task", "First Task Description", 60, LocalDateTime.of(2025,1,1,13,0));

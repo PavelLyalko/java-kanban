@@ -1,6 +1,7 @@
 package manager;
 
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
@@ -84,13 +85,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void add(Task task) {
+    public void add(Task task) throws TimeIntersectionException {
         super.add(task);
         save();
     }
 
     @Override
-    public void add(Subtask subtask) {
+    public void add(Subtask subtask) throws TimeIntersectionException{
         super.add(subtask);
         save();
     }
@@ -102,7 +103,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void update(Task task) {
+    public void update(Task task) throws TimeIntersectionException{
         super.update(task);
         save();
     }
@@ -114,7 +115,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void update(Subtask subtask) {
+    public void update(Subtask subtask) throws TimeIntersectionException{
         super.update(subtask);
         save();
     }

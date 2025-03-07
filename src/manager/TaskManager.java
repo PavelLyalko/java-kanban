@@ -1,5 +1,6 @@
 package manager;
 
+import exceptions.TimeIntersectionException;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
@@ -7,17 +8,17 @@ import tasks.Task;
 import java.util.List;
 
 public interface TaskManager {
-    void add(Task task);
+    void add(Task task) throws TimeIntersectionException;
 
     void add(Epic epic);
 
-    void add(Subtask subtask);
+    void add(Subtask subtask) throws TimeIntersectionException;
 
-    void update(Task task);
+    void update(Task task) throws TimeIntersectionException;
 
     void update(Epic epic);
 
-    void update(Subtask subtask);
+    void update(Subtask subtask) throws TimeIntersectionException;
 
     void clearTasks();
 

@@ -1,4 +1,5 @@
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import manager.FileBackedTaskManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @Test
     @DisplayName("Проверяет коректность работы файлового менеджера.")
-    void testSuccessWorkFileManager() throws IOException {
+    void testSuccessWorkFileManager() throws IOException, TimeIntersectionException {
         File file = File.createTempFile("test", ".txt");
         FileBackedTaskManager fileBackedTaskManager = FileBackedTaskManager.loadFromFile(file);
         Task task1 = new Task(Type.TASK, "task1", "dasdasd", 60, LocalDateTime.of(2025, 1,1,1,1,1));
@@ -34,7 +35,5 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     void checkThatAnExceptioIsThrownTheFileDoesNotExist() {
         assertThrows(FileNotFoundException.class, () -> FileBackedTaskManager.loadFromFile(new File("tetete.txt")));
     }
-
-
 
 }
