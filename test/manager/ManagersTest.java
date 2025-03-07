@@ -1,9 +1,12 @@
 package manager;
 
 import enums.Type;
+import exceptions.TimeIntersectionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
+
+import java.time.LocalDateTime;
 
 import static manager.Managers.getDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,13 +32,13 @@ public class ManagersTest {
 
     @Test
     @DisplayName("Проверяем, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;")
-    void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() {
+    void checkTaskWithGeneratedIdAndSetterIdDoNotConflict() throws TimeIntersectionException {
         TaskManager manager = getDefault();
         manager.clearAll();
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
         manager.add(firstTask);
 
-        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description");
+        Task secondTask = new Task(Type.TASK, "Second Task", "Second Task Description", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         secondTask.setId(1);
         manager.add(secondTask);
 
@@ -44,11 +47,11 @@ public class ManagersTest {
 
     @Test
     @DisplayName("Проверяем неизменность задачи (по всем полям) при добавлении задачи в менеджер")
-    void checkCorrectTaskFieldWhenAddMap() {
+    void checkCorrectTaskFieldWhenAddMap() throws TimeIntersectionException {
         TaskManager taskManager = getDefault();
         taskManager.clearAll();
 
-        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description");
+        Task firstTask = new Task(Type.TASK, "First Task", "First Task Description", 60, LocalDateTime.of(2025, 2, 1, 1, 1, 1));
         taskManager.add(firstTask);
 
         assertEquals(firstTask.getId(), taskManager.getTaskById(1).getId());
