@@ -23,12 +23,18 @@ public class InMemoryTaskManager implements TaskManager {
     protected static Map<Integer, Subtask> subtasks = new HashMap<>();
     protected Set<Task> prioritizedTasks = new TreeSet<>(new TaskComparator());
     private static int nextId = 1;
+
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
     private HistoryManager historyManager = getDefaultHistory();
 
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
+
 
     @Override
     public void add(Task task) throws TimeIntersectionException {
@@ -65,6 +71,9 @@ public class InMemoryTaskManager implements TaskManager {
             if (subtasks.containsKey(subtask.getEpicId())) {
                 return;
             }
+            System.out.println(epics);
+            System.out.println(subtask.getEpicId());
+            System.out.println(subtask);
             if (epics.containsKey(subtask.getEpicId())) {
                 if (checkTime(subtask)) {
                     subtask.setId(nextId++);

@@ -2,8 +2,8 @@ import enums.Type;
 import exceptions.TimeIntersectionException;
 import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
-import manager.TaskManager;
 
+import manager.TaskManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InMemoryHistoryManagerTest {
+class InMemoryHistoryManagerTest {
 
     @Test
     @DisplayName("Провенряем корректность заполнения истории")
@@ -75,6 +75,7 @@ public class InMemoryHistoryManagerTest {
     void checkSuccesDeleteTaskTest() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         Task task1 = new Task(Type.TASK, "Task 1", "Task Description 1", 60, LocalDateTime.of(2025, 1, 1, 1, 1, 1));
+        task1.setId(1);
         historyManager.add(task1);
         historyManager.remove(task1.getId());
         assertEquals(0, historyManager.getHistory().size());

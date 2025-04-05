@@ -46,6 +46,8 @@ public interface TaskManager {
 
     List<Subtask> getEpicSubtasks(int id);
 
+    HistoryManager getHistoryManager();
+
     List<Task> getHistory();
 
     void clearAll();

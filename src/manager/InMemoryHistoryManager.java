@@ -12,6 +12,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void add(Task task) {
         historyList.linkLast(task);
+        System.out.println(task);
     }
 
     @Override
