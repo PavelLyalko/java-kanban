@@ -261,7 +261,6 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toList());
     }
 
-
     public static void setNextId(int id) {
         nextId = id;
     }
