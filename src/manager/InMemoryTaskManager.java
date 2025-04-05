@@ -262,8 +262,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    public static void setNextId(int Id) {
-        nextId = Id;
+    public static void setNextId(int id) {
+        nextId = id;
     }
 
     @Override
