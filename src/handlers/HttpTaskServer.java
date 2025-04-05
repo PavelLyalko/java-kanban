@@ -1,9 +1,6 @@
+package handlers;
+
 import com.sun.net.httpserver.HttpServer;
-import handlers.EpicsHandler;
-import handlers.HistoryHandler;
-import handlers.PrioritizedHandler;
-import handlers.SubtasksHandler;
-import handlers.TasksHandler;
 import manager.Managers;
 import manager.TaskManager;
 
@@ -14,17 +11,18 @@ public class HttpTaskServer {
 
     private static final int DEFAULT_PORT = 8080;
     private static HttpServer httpServer;
-    private static final TaskManager taskManager = Managers.getDefault();
-    private final int port;
+    private final TaskManager taskManager;
 
-    public HttpTaskServer(int port) throws IOException {
-        this.port = port;
-        httpServer = HttpServer.create(new InetSocketAddress(this.port), 0);
+    public HttpTaskServer(TaskManager taskManager) throws IOException {
+        this.taskManager = taskManager;
+        httpServer = HttpServer.create(new InetSocketAddress(DEFAULT_PORT), 0);
         createContext();
     }
 
-    public HttpTaskServer() throws IOException {
-        this(DEFAULT_PORT);
+    public HttpTaskServer(int id, TaskManager taskManager) throws IOException {
+        this.taskManager = taskManager;
+        httpServer = HttpServer.create(new InetSocketAddress(id), 0);
+        createContext();
     }
 
     public void start() {
@@ -44,6 +42,6 @@ public class HttpTaskServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new HttpTaskServer().start();
+        new HttpTaskServer(Managers.getDefault()).start();
     }
 }

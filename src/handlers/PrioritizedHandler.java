@@ -40,6 +40,6 @@ public class PrioritizedHandler extends BaseHttpHandler implements HttpHandler {
 
     private void getPrioritizedTasks(HttpExchange exchange) throws IOException {
         List<Task> tasks = taskManager.getPrioritizedTasks();
-        sendText(exchange,gson.toJson(tasks));
+        sendText(exchange, gson.toJson(tasks));
     }
 }

@@ -48,6 +48,8 @@ public interface TaskManager {
 
     HistoryManager getHistoryManager();
 
+    void resetId();
+
     List<Task> getHistory();
 
     void clearAll();

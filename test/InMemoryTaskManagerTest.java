@@ -42,8 +42,6 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
         assertThrows(TimeIntersectionException.class, () -> manager.add(task3));
         assertThrows(TimeIntersectionException.class, () -> manager.add(task4));
 
-        System.out.println(manager.getTasks());
-
         List<Task> list = manager.getPrioritizedTasks();
         assertEquals(2, list.size());
         assertEquals(task1, list.getFirst());

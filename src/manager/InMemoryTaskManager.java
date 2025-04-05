@@ -35,7 +35,6 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-
     @Override
     public void add(Task task) throws TimeIntersectionException {
         if (tasks.containsKey(task.getId())) {
@@ -71,9 +70,6 @@ public class InMemoryTaskManager implements TaskManager {
             if (subtasks.containsKey(subtask.getEpicId())) {
                 return;
             }
-            System.out.println(epics);
-            System.out.println(subtask.getEpicId());
-            System.out.println(subtask);
             if (epics.containsKey(subtask.getEpicId())) {
                 if (checkTime(subtask)) {
                     subtask.setId(nextId++);
@@ -265,8 +261,14 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toList());
     }
 
-    protected static void setNextId(int Id) {
+
+    public static void setNextId(int Id) {
         nextId = Id;
+    }
+
+    @Override
+    public void resetId() {
+        nextId = 1;
     }
 
     @Override

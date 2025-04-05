@@ -57,8 +57,7 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
         Task task = taskManager.getTaskById(Integer.parseInt(id));
 
         if (task != null) {
-            String response = gson.toJson(taskManager.getTaskById(Integer.parseInt(id)));
-            sendText(exchange, response);
+            sendText(exchange, gson.toJson(task));
         } else {
             sendNotFound(exchange, "Task", id);
         }
@@ -79,20 +78,20 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
                 taskManager.update(task);
                 response = "Task успешно обновлена.";
             }
-            sendText(exchange,response);
+            sendText(exchange, response);
         } catch (TimeIntersectionException exp) {
-            sendHasInteractions(exchange,exp);
+            sendHasInteractions(exchange, exp);
         } finally {
             inputStream.close();
         }
     }
 
     private void getTasks(HttpExchange exchange) throws IOException {
-        sendText(exchange,gson.toJson(taskManager.getTasks()));
+        sendText(exchange, gson.toJson(taskManager.getTasks()));
     }
 
     private void deleteTaskById(HttpExchange exchange, String id) throws IOException {
         taskManager.deleteTask(Integer.parseInt(id));
-        sendText(exchange,"Task успешно удалена.");
+        sendText(exchange, "Task успешно удалена.");
     }
 }
