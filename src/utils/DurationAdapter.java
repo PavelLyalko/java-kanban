@@ -23,4 +23,3 @@ public class DurationAdapter implements JsonSerializer<Duration>, JsonDeserializ
         return Duration.ofMinutes(json.getAsLong());
     }
 }
-
