@@ -14,7 +14,7 @@ public class HttpTaskServer {
 
     private static final int DEFAULT_PORT = 8080;
     private static HttpServer httpServer;
-    private final static TaskManager taskManager = Managers.getDefault();
+    private static final TaskManager taskManager = Managers.getDefault();
     private final int port;
 
     public HttpTaskServer(int port) throws IOException {
