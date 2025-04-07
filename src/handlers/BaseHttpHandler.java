@@ -18,7 +18,7 @@ public class BaseHttpHandler {
 
     protected void sendNotFound(HttpExchange h, String text, String id) throws IOException {
         byte[] resp = (text + " с id " + id + " не найден.").getBytes(StandardCharsets.UTF_8);
-        h.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");
+        h.getResponseHeaders().add("Content-Type", "charset=utf-8");
         h.sendResponseHeaders(404, resp.length);
         h.getResponseBody().write(resp);
         h.close();
@@ -26,7 +26,7 @@ public class BaseHttpHandler {
 
     protected void sendHasInteractions(HttpExchange h, TimeIntersectionException e) throws IOException {
         byte[] resp = e.getMessage().getBytes(StandardCharsets.UTF_8);
-        h.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");
+        h.getResponseHeaders().add("Content-Type", "charset=utf-8");
         h.sendResponseHeaders(406, resp.length);
         h.getResponseBody().write(resp);
         h.close();

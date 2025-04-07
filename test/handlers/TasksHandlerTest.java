@@ -43,7 +43,7 @@ class TasksHandlerTest {
 
     @Test
     @DisplayName("Проверяет создание Task.")
-    void testCreateTask() throws IOException, InterruptedException {
+    void testCreateOrUpdateTask() throws IOException, InterruptedException {
         String taskJson = "{\"name\":\"Test Task\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:9090/tasks"))

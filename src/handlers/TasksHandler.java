@@ -37,7 +37,7 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
 
         switch (method) {
             case "POST":
-                createTask(exchange);
+                createOrUpdateTask(exchange);
                 break;
             case "GET":
                 if (paths.length == 2) {
@@ -63,7 +63,7 @@ public class TasksHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-    private void createTask(HttpExchange exchange) throws IOException {
+    private void createOrUpdateTask(HttpExchange exchange) throws IOException {
         InputStream inputStream = exchange.getRequestBody();
         String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 

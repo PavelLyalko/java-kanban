@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 public class HttpTaskServer {
 
     private static final int DEFAULT_PORT = 8080;
-    private static HttpServer httpServer;
+    private final HttpServer httpServer;
     private final TaskManager taskManager;
 
     public HttpTaskServer(TaskManager taskManager) throws IOException {
@@ -19,9 +19,9 @@ public class HttpTaskServer {
         createContext();
     }
 
-    public HttpTaskServer(int id, TaskManager taskManager) throws IOException {
+    public HttpTaskServer(int port, TaskManager taskManager) throws IOException {
         this.taskManager = taskManager;
-        httpServer = HttpServer.create(new InetSocketAddress(id), 0);
+        httpServer = HttpServer.create(new InetSocketAddress(port), 0);
         createContext();
     }
 
