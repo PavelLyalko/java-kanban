@@ -12,7 +12,7 @@ import static manager.Managers.getDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ManagersTest {
+class ManagersTest {
 
     @Test
     @DisplayName("Убеждаемся, что утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров")

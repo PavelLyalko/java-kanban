@@ -3,6 +3,7 @@ package tasks;
 import enums.Type;
 import exceptions.TimeIntersectionException;
 import manager.InMemoryTaskManager;
+
 import manager.TaskManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ class SubtaskTest {
     @DisplayName("Проверяем, что экземпляры класса Subtask равны друг другу, если равен их id")
     void subtaskObjectsEqualsWhenTheirIdEquals() {
         Epic epic = new Epic(Type.EPIC, "First Epic", "First Epic Description");
+        epic.setId(0);
         Subtask firstSubtask = new Subtask(Type.SUBTASK, "First Subtask", "First Subtask Description", epic.getId(), 50, LocalDateTime.now());
         firstSubtask.setId(1);
 

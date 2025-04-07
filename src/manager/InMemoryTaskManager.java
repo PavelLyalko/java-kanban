@@ -23,6 +23,11 @@ public class InMemoryTaskManager implements TaskManager {
     protected static Map<Integer, Subtask> subtasks = new HashMap<>();
     protected Set<Task> prioritizedTasks = new TreeSet<>(new TaskComparator());
     private static int nextId = 1;
+
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
     private HistoryManager historyManager = getDefaultHistory();
 
     @Override
@@ -256,8 +261,13 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toList());
     }
 
-    protected static void setNextId(int Id) {
-        nextId = Id;
+    public static void setNextId(int id) {
+        nextId = id;
+    }
+
+    @Override
+    public void resetId() {
+        nextId = 1;
     }
 
     @Override

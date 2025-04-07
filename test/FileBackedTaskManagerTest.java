@@ -2,6 +2,7 @@ import enums.Type;
 import exceptions.TimeIntersectionException;
 import manager.FileBackedTaskManager;
 import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
@@ -32,7 +33,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @Test
     @DisplayName("Проверяем что выбрасывается исключение, если файла не существует")
-    void checkThatAnExceptioIsThrownTheFileDoesNotExist() {
+    void checkThatAnExceptionIsThrownTheFileDoesNotExist() {
         assertThrows(FileNotFoundException.class, () -> FileBackedTaskManager.loadFromFile(new File("tetete.txt")));
     }
 

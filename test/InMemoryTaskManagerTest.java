@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
+class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @Test
     @DisplayName("Для подзадач необходимо дополнительно убедиться в наличии связанного эпика.")
@@ -41,8 +41,6 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
         manager.add(task2);
         assertThrows(TimeIntersectionException.class, () -> manager.add(task3));
         assertThrows(TimeIntersectionException.class, () -> manager.add(task4));
-
-        System.out.println(manager.getTasks());
 
         List<Task> list = manager.getPrioritizedTasks();
         assertEquals(2, list.size());
